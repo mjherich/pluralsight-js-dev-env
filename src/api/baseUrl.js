@@ -1,4 +1,12 @@
 export default function getBaseUrl() {
-  const inDevelopment = window.location.hostname === 'localhost';
-  return inDevelopment ? 'http://localhost:3001/' : '/';
+  return getQueryStringParameterByName('useMockApi') ? 'http://localhost:3001/' : '/';
+}
+
+function getQueryStringParameterByName(name) {
+  const url = new URL(window.location.href);
+  if (url.searchParams.get(name)) {
+    return url.searchParams.get(name) === 'true';
+  } else {
+    return false;
+  }
 }
